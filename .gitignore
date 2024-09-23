@@ -1,1 +1,7 @@
-*.env
+# dotenv environment variable files
+.env
+.env.test
+.env.development
+.env.production
+/cmd/docs
+tmp
