@@ -1,19 +1,17 @@
 package config
 
 import (
-	"log"
-
-	"github.com/kelseyhightower/envconfig"
+	"os"
 )
 
 // PostgresDBConfig struct
 type PostgresDBConfig struct {
-	PostgresDatabaseHost     string `env:"POSTGRES_DATABASE_HOST" required:"true"`
-	PostgresDatabasePort     string `env:"POSTGRES_DATABASE_PORT" required:"true"`
-	PostgresDatabaseName     string `env:"POSTGRES_DATABASE_NAME" required:"true"`
-	PostgresDatabaseUser     string `env:"POSTGRES_DATABASE_USER" required:"true"`
-	PostgresDatabasePassword string `env:"POSTGRES_DATABASE_PASSWORD" required:"true"`
-	PostgresDatabaseDebug    string `env:"POSTGRES_DATABASE_DEBUG" required:"true"`
+	PostgresDatabaseHost     string
+	PostgresDatabasePort     string
+	PostgresDatabaseName     string
+	PostgresDatabaseUser     string
+	PostgresDatabasePassword string
+	PostgresDatabaseDebug    string
 }
 
 // DBConfig DbConfig struct
@@ -23,12 +21,14 @@ type DBConfig struct {
 
 // LoadDBConfig function
 func LoadDBConfig() DBConfig {
-	var cfg DBConfig
-
-	err := envconfig.Process("", &cfg)
-	if err != nil {
-		log.Fatal(err.Error())
+	return DBConfig{
+		PostgresConfig: PostgresDBConfig{
+			PostgresDatabaseHost:     os.Getenv("POSTGRES_DATABASE_HOST"),
+			PostgresDatabasePort:     os.Getenv("POSTGRES_DATABASE_PORT"),
+			PostgresDatabaseName:     os.Getenv("POSTGRES_DATABASE_NAME"),
+			PostgresDatabaseUser:     os.Getenv("POSTGRES_DATABASE_USER"),
+			PostgresDatabasePassword: os.Getenv("POSTGRES_DATABASE_PASSWORD"),
+			PostgresDatabaseDebug:    os.Getenv("POSTGRES_DATABASE_DEBUG"),
+		},
 	}
-
-	return cfg
 }

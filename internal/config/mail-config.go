@@ -1,28 +1,30 @@
 package config
 
 import (
-	"log"
-
-	"github.com/kelseyhightower/envconfig"
+	"os"
+	"strconv"
 )
 
 type MailConfig struct {
-	MailHost     string `env:"MAIL_HOST" required:"true"`
-	MailPort     int    `env:"MAIL_PORT" required:"true"`
-	MailUsername string `env:"MAIL_SMTP_USERNAME" required:"true"`
-	MailPassword string `env:"MAIL_SMTP_PASSWORD" required:"true"`
-	MailSecure   bool   `env:"MAIL_SMTP_SECURE" required:"true"`
+	MailHost     string
+	MailPort     int
+	MailUsername string
+	MailPassword string
+	MailSecure   bool
 }
 
 func LoadMailConfig() MailConfig {
 
-	var cfg MailConfig
-
-	err := envconfig.Process("", &cfg)
-
+	port, err := strconv.Atoi(os.Getenv("MAIL_PORT"))
 	if err != nil {
-		log.Fatal(err.Error())
+		panic(err)
 	}
 
-	return cfg
+	return MailConfig{
+		MailHost:     os.Getenv("MAIL_HOST"),
+		MailPort:     port,
+		MailUsername: os.Getenv("MAIL_SMTP_USERNAME"),
+		MailPassword: os.Getenv("MAIL_SMTP_PASSWORD"),
+		MailSecure:   os.Getenv("MAIL_SMTP_SECURE") == "true",
+	}
 }

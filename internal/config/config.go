@@ -15,10 +15,11 @@ type Config struct {
 }
 
 func NewConfig() *Config {
+
 	// Load environment variables and check error
 	err := godotenv.Load(".env")
 	if err != nil {
-		log.Println("Error loading .env file")
+		log.Println(err)
 	}
 
 	env := &Config{

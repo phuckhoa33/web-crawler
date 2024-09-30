@@ -1,26 +1,21 @@
 package config
 
 import (
-	"log"
-
-	"github.com/kelseyhightower/envconfig"
+	"os"
 )
 
 type RedisConfig struct {
-	RedisHost     string `env:"REDIS_HOST" required:"true"`
-	RedisPort     string `env:"REDIS_PORT" required:"true"`
-	RedisPassword string `env:"REDIS_PASSWORD" required:"false"`
-	RedisDb       int    `env:"REDIS_DB" required:"false"`
+	RedisHost     string
+	RedisPort     string
+	RedisPassword string
+	RedisDb       string
 }
 
 func LoadRedisConfig() RedisConfig {
-	var cfg RedisConfig
-
-	err := envconfig.Process("", &cfg)
-
-	if err != nil {
-		log.Fatal(err.Error())
+	return RedisConfig{
+		RedisHost:     os.Getenv("REDIS_HOST"),
+		RedisPort:     os.Getenv("REDIS_PORT"),
+		RedisPassword: os.Getenv("REDIS_PASSWORD"),
+		RedisDb:       os.Getenv("REDIS_DB"),
 	}
-
-	return cfg
 }

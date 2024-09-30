@@ -1,26 +1,19 @@
 package config
 
-import (
-	"log"
-
-	"github.com/kelseyhightower/envconfig"
-)
+import "os"
 
 type AuthConfig struct {
-	AccessTokenSecret     string `env:"ACCESS_TOKEN_SECRET" required:"true"`
-	AccessTokenExpiredIn  string `env:"ACCESS_TOKEN_EXPIRES_IN" required:"true"`
-	RefreshTokenSecret    string `env:"REFRESH_TOKEN_SECRET" required:"true"`
-	RefreshTokenExpiredIn string `env:"REFRESH_TOKEN_EXPIRES_IN" required:"true"`
+	AccessTokenSecret     string
+	AccessTokenExpiredIn  string
+	RefreshTokenSecret    string
+	RefreshTokenExpiredIn string
 }
 
 func LoadAuthConfig() AuthConfig {
-	var cfg AuthConfig
-
-	err := envconfig.Process("", &cfg)
-
-	if err != nil {
-		log.Fatal(err.Error())
+	return AuthConfig{
+		AccessTokenSecret:     os.Getenv("ACCESS_TOKEN_SECRET"),
+		AccessTokenExpiredIn:  os.Getenv("ACCESS_TOKEN_EXPIRES_IN"),
+		RefreshTokenSecret:    os.Getenv("REFRESH_TOKEN_SECRET"),
+		RefreshTokenExpiredIn: os.Getenv("REFRESH_TOKEN_EXPIRES_IN"),
 	}
-
-	return cfg
 }
