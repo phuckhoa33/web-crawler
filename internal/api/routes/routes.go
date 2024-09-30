@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"github.com/phuckhoa33/web-crawler/cmd/server"
+	data_source_route "github.com/phuckhoa33/web-crawler/internal/api/routes/data-source"
 	health_check_route "github.com/phuckhoa33/web-crawler/internal/api/routes/health-check"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -12,10 +13,11 @@ import (
 func ConfigureRoutes(server *server.Server) {
 
 	// Version 1 of router
-	v1 := server.Gin.Group(server.Config.App.AppApiPrefix + "/" + server.Config.App.AppVersion)
+	v1 := server.Gin.Group(server.Config.App.AppApiPrefix + "/v1")
 
 	// Configure for health check route
 	health_check_route.ConfigureHealthCheckRoutes(server, v1)
+	data_source_route.ConfigureUserDataSourceRoute(server, v1)
 
 	// Configure path of swagger
 	server.Gin.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

@@ -8,11 +8,10 @@ import (
 
 func ConfigureHealthCheckRoutes(server *server.Server, route *gin.RouterGroup) {
 	// import hanlders
-	healthCheckHandler := handlers.NewHealthCheckHandler()
-
+	healthCheckHandler := handlers.NewHealthCheckHandler(server)
 	// Conigure route
 	healthCheckRoute := route.Group("/health-check")
 	{
-		healthCheckRoute.GET("/", healthCheckHandler.HealthCheck)
+		healthCheckRoute.GET("/database", healthCheckHandler.DatabaseHealthCheck)
 	}
 }

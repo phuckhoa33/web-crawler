@@ -24,7 +24,6 @@ func NewServer(config *config.Config) *Server {
 func (server *Server) Run(appPort string) error {
 	// Configure swagger info
 	InitSwaggerInfo(server.Config)
-
 	// Run application
 	return server.Gin.Run(":" + appPort)
 }

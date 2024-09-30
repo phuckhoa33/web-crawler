@@ -24,6 +24,9 @@ func Connect(config *config.Config) *gorm.DB {
 		panic(err.Error())
 	}
 
+	// migration
+	Migrate(db)
+
 	// Log
 	log.Println("Postgresql database connect is successfully")
 

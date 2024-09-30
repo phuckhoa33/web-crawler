@@ -5,9 +5,7 @@ import (
 	"github.com/phuckhoa33/web-crawler/internal/config"
 )
 
-// @title			Golang Boilerplate API
 // @version		1.0
-// @description	This is a boilerplate for building RESTful APIs in Golang.
 // @securityDefinitions.apikey	ApiKeyAuth
 // @in							header
 // @name						Authorization

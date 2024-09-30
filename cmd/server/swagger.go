@@ -1,8 +1,8 @@
 package server
 
 import (
+	"github.com/phuckhoa33/web-crawler/cmd/docs"
 	"github.com/phuckhoa33/web-crawler/internal/config"
-	"github.com/swaggo/swag/example/basic/docs"
 )
 
 func InitSwaggerInfo(config *config.Config) {
