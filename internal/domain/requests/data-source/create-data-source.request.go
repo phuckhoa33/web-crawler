@@ -13,11 +13,16 @@ type CreateDataSourceRequest struct {
 }
 
 func (r *CreateDataSourceRequest) Validate() error {
-	return validation.ValidateStruct(&r,
+	return validation.ValidateStruct(r,
 		validation.Field(&r.Name, validation.Required, validation.Length(1, 255)),
 		validation.Field(&r.Url, validation.Required, is.URL),
 		validation.Field(&r.Industry, validation.Required, validation.In(
-			data_source_enum.IndustryEducation, data_source_enum.IndustryFinance, data_source_enum.IndustryTechnology, data_source_enum.IndustryHealth, data_source_enum.IndustryEducation,
+			data_source_enum.IndustryEducation,
+			data_source_enum.IndustryFinance,
+			data_source_enum.IndustryTechnology,
+			data_source_enum.IndustryHealth,
+			data_source_enum.IndustryEducation,
+			data_source_enum.IndustryNews,
 		)),
 	)
 }

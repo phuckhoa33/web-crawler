@@ -1,6 +1,10 @@
 package config
 
-import "os"
+import (
+	"log"
+	"os"
+	"strconv"
+)
 
 type AppConfig struct {
 	SwaggerEnable  string
@@ -12,9 +16,16 @@ type AppConfig struct {
 	AppHost        string
 	AppApiDebug    string
 	AppApiPrefix   string
+	PingTimeout    int
 }
 
 func LoadAppConfig() AppConfig {
+	// Get ping timeout
+	pingTimeout, err := strconv.Atoi(os.Getenv("PING_TIMEOUT"))
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	return AppConfig{
 		SwaggerEnable:  os.Getenv("SWAGGER_ENABLE"),
 		AppName:        os.Getenv("APP_NAME"),
@@ -25,5 +36,6 @@ func LoadAppConfig() AppConfig {
 		AppHost:        os.Getenv("APP_HOST"),
 		AppApiDebug:    os.Getenv("APP_API_DEBUG"),
 		AppApiPrefix:   os.Getenv("APP_API_PREFIX"),
+		PingTimeout:    pingTimeout,
 	}
 }
