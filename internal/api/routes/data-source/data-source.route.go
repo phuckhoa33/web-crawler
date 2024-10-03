@@ -17,5 +17,7 @@ func ConfigureUserDataSourceRoute(server *server.Server, route *gin.RouterGroup)
 		dataSourceRoute.GET("", handler.GetAllDataSource)
 		dataSourceRoute.DELETE("/all", handler.DeleteAllDataSource)
 		dataSourceRoute.DELETE("/:id", handler.DeleteDataSource)
+		dataSourceRoute.GET("/:id", handler.GetDataSource)
+		dataSourceRoute.PATCH("/:id", handler.UpdateDataSource)
 	}
 }
